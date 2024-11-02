@@ -5,4 +5,6 @@ admin.site.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_filter = [
         ("title", admin.EmptyFieldListFilter),
+        ("author", admin.EmptyFieldListFilter),
+        ("publication_year", admin.EmptyFieldListFilter)
     ]
