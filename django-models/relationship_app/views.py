@@ -3,7 +3,7 @@ from .models import Book
 from .models import Library
 from django.views.generic.detail import DetailView
 
-def book_list(request):
+def list_books(request):
     books = Book.objects.all()
     context = {
         'book_list':books
