@@ -12,7 +12,7 @@ urlpatterns = [
     path('librarian/', views.librarian_view, name='librarian_view'),
     path('member/', views.member_view, name='member_view'),
     path('books/', views.list_books, name='book_list'),
-    path('add/', views.add_book, name='add_book'),
-    path('edit/<int:pk>/', views.edit_book, name='edit_book'),
-    path('delete/<int:pk>/', views.delete_book, name='delete_book'),
+    path('add/', views.add_book, name='add_book'),  # Ensure trailing slash
+    path('edit/<int:pk>/', views.edit_book, name='edit_book'),  # Ensure trailing slash
+    path('delete/<int:pk>/', views.delete_book, name='delete_book'),  # Ensure trailing slash
 ]
