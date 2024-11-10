@@ -5,8 +5,9 @@ from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib import messages
 from django.contrib.auth import login,logout
-from django.contrib.auth.decorators import user_passes_test,permission_required
+from django.contrib.auth.decorators import user_passes_test
 from .forms import BookForm
+from django.contrib.auth.decorators import permission_required
 
 
 def list_books(request):
@@ -88,12 +89,11 @@ def add_book(request):
         form = BookForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('book_list')  # Assuming you have a list view for books
+            return redirect('book_list') 
     else:
         form = BookForm()
     return render(request, 'add_book.html', {'form': form})
 
-# View to edit a book (only users with 'can_change_book' permission can access)
 @permission_required('relationship_app.can_change_book', raise_exception=True)
 def edit_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
@@ -101,16 +101,15 @@ def edit_book(request, pk):
         form = BookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return redirect('book_list')  # Assuming you have a list view for books
+            return redirect('book_list') 
     else:
         form = BookForm(instance=book)
     return render(request, 'edit_book.html', {'form': form, 'book': book})
 
-# View to delete a book (only users with 'can_delete_book' permission can access)
 @permission_required('relationship_app.can_delete_book', raise_exception=True)
 def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == 'POST':
         book.delete()
-        return redirect('book_list')  # Redirect to a list view after deleting
+        return redirect('book_list') 
     return render(request, 'delete_book.html', {'book': book})
