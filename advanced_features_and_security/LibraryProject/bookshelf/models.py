@@ -7,6 +7,15 @@ class Book(models.Model):
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
 
+    class Meta:
+        permissions = [
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
+        ]
+    
+
     def __str__(self):
         return f"{self.title} by {self.author}"
 
@@ -41,11 +50,10 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'  # This sets the email as the username
-    REQUIRED_FIELDS = ['username']  # This is needed for migrations to work properly
-
+    USERNAME_FIELD = 'email' 
+    REQUIRED_FIELDS = ['username']  
 
     
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)  # Example field
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True) 
